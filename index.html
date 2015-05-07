@@ -63,7 +63,7 @@ What’s the point?Going through this and a couple more exercises will help you 
         <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/Dev204x-Delegates/index.html" class="article-date">
-  <time datetime="2015-05-07T14:38:41.259Z" itemprop="datePublished">2015-05-07</time>
+  <time datetime="2015-05-07T19:09:44.290Z" itemprop="datePublished">2015-05-07</time>
 </a>
     
   </div>
@@ -84,20 +84,23 @@ What’s the point?Going through this and a couple more exercises will help you 
       
         <p>Credit to Dan Wahlin for excellent explanations.<br>Any and all mistakes are my (kradcliffe’s) responsibility.</p>
 <p><strong>What’s the point?</strong><br>Going through this and a couple more exercises will help you much more deeply understand what Linq ACTUALLY does.</p>
-<p><strong>Delegates are method pointers, plain and simple.</strong><br>You use the delgate keyword, with a named method signature.<br>This allows you to point the delegate at any real method with the same method signature and then invoke it directly.</p>
+<p><strong>Delegates are method pointers, plain and simple.</strong><br>You use the delgate keyword, with a named method signature<br>This allows you to point the delegate at any regular method with the same <em>signature</em>.<br>(That is: Having identical return type and method parameters, but with <strong>different</strong> name)</p>
 <h3 id="Example">Example</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">DelExample</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">WorkPerformedHandler</span><span class="params">(<span class="keyword">int</span> hours, WorkType workType)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">()</span> </span>&#123; <span class="keyword">new</span> Program().Run(); &#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Run</span><span class="params">()</span></span><br><span class="line">		</span>&#123;</span><br><span class="line">			WorkPerformedHandler del1 = <span class="keyword">new</span> WorkPerformedHandler(WorkPerformed1);</span><br><span class="line">			del1(<span class="number">10</span>, WorkType.Programming);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">WorkPerformed1</span><span class="params">(<span class="keyword">int</span> hours, WorkType workType)</span></span><br><span class="line">		</span>&#123;</span><br><span class="line">			Console.WriteLine(<span class="string">"WorkPerformed1 called"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">enum</span> WorkType</span><br><span class="line">	&#123;</span><br><span class="line">		Programming,</span><br><span class="line">		Construction,</span><br><span class="line">		Meetings,</span><br><span class="line">		CreateReports,</span><br><span class="line">		HardlyWorking</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Exercises">Exercises</h3><p>You can see above that at the lowest level, the way you connect delegates to actual methods is to instantiate them (new).<br>When you do this, you pass in the method you wish to invoke THROUGH the delegate.</p>
 <p>After you have set this up, notice that you can then invoke the delegate directly, as though it were a normal method.</p>
 <p>Use your own editor (VS recommended) or fork this fiddle:<br><a href="https://dotnetfiddle.net/D4oRWW" target="_blank" rel="external">DotNetFiddle</a></p>
 <p>And perform the following exercises:</p>
 <ol>
-<li><p>Try to create another method. Create an instance of a 2nd delegate and new it up, pointing to the new method.<br>Mentally note what the constructor is expecting when you open parentheses.</p>
-</li>
+<li>Try to create another method with the same signature.(Same return type, and params as the delegate, different name)<br>Similar to what exists above for:</li>
+</ol>
+<p>void WorkPerformed1(int hours, WorkType workType) </p>
+<p>Create a second instance of the delegate and new it up, pointing to your new method.<br>Mentally note what the constructor is expecting when you open parentheses.</p>
+<ol>
 <li><p>Alter your methods to do something with the input parameters.<br>Make sure that your output shows the parameters some how.</p>
 </li>
 <li><p>Alter your delegate to return an int.<br>Play with the code (your methods need to be altered) to make sure it compiles, and will return a result</p>
 </li>
-<li><p>Create a second delegate with a different signature.<br>Create another method, and point your delegate to the new signature.</p>
+<li><p>Create a second delegate with a different signature. (different return type and/or different params)<br>Create another method (with the appropriate signature), and point your delegate to your new method. </p>
 </li>
 <li><p>(Challenge) Point your delegate to an anonymous method.<br>This will be covered in more detail in another assignment, so don’t worry if this doesn’t make sense.  </p>
 </li>
@@ -106,7 +109,7 @@ What’s the point?Going through this and a couple more exercises will help you 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kradcliffe.github.io/Dev204x-Delegates/index.html" data-id="ci9ea524j0001ssgoak9q7xew" class="article-share-link">Share</a>
+      <a data-url="http://kradcliffe.github.io/Dev204x-Delegates/index.html" data-id="ci9ejsaod0001esgokyq2mvr2" class="article-share-link">Share</a>
       
       
     </footer>
